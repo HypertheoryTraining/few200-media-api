@@ -10,6 +10,10 @@ export class MediaService {
     ]
 
     async getAllMedia() {
-        return this.data;
+        return new Promise((res) => {
+            setTimeout(() => {
+                res(this.data);
+            }, 3000)
+        })
     }
 }
