@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Delete, Param } from '@nestjs/common';
 import { MediaService } from './media.service';
 import { MediaCreate } from './models/media-create';
 
@@ -7,6 +7,12 @@ export class MediaController {
 
 
     constructor(private service: MediaService) { }
+
+    @Delete(":id")
+    async removeMedia(@Param() params) {
+        await this.service.removeMedia(params.id);
+        return;
+    }
 
     @Get()
     async getAllMedia() {

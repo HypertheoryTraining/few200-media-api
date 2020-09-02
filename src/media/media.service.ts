@@ -18,6 +18,10 @@ export class MediaService {
         })
     }
 
+    async removeMedia(id: string) {
+        this.data = this.data.filter(d => d.id !== id);
+    }
+
     async addMedia(media: MediaCreate) {
         const newItem = ({ ...media, id: cuid() } as MediaItem);
         return new Promise((res, rej) => {
