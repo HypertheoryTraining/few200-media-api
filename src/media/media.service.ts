@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { MediaItem } from './models/media';
-
+import { MediaCreate } from './models/media-create';
+import * as cuid from 'cuid';
 @Injectable()
 export class MediaService {
 
@@ -14,6 +15,21 @@ export class MediaService {
             setTimeout(() => {
                 res(this.data);
             }, 3000)
+        })
+    }
+
+    async addMedia(media: MediaCreate) {
+        const newItem = ({ ...media, id: cuid() } as MediaItem);
+        return new Promise((res, rej) => {
+            setTimeout(() => {
+                if (newItem.title === 'Riverdale') {
+                    rej(new BadRequestException());
+                } else {
+
+                    this.data.push(newItem);
+                    res(newItem);
+                }
+            }, 4000);
         })
     }
 }
